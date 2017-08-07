@@ -1,6 +1,6 @@
 {
   "name": "nextperiod",
-  "version": "0.3.0",
+  "version": "0.2.0",
   "description": "Tiny utility to give you the next time in a series.",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "precommit": "lint-staged",
     "lint": "eslint lib/* bin/*",
     "test": "mocha tests.js",
-    "deploy": "npm version minor && npm publish"
+    "deploy": "npm version minor && git commit -am 'Release' && git push && npm publish"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
