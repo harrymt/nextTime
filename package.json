@@ -13,7 +13,8 @@
   "scripts": {
     "precommit": "lint-staged",
     "lint": "eslint lib/* bin/*",
-    "test": "mocha tests.js"
+    "test": "mocha tests.js",
+    "deploy": "npm version minor && npm publish"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
