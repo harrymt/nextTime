@@ -1,6 +1,6 @@
 {
   "name": "nextperiod",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tiny utility to give you the next time in a series.",
   "repository": {
     "type": "git",
