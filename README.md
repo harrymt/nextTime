@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/harrymt/nextperiod.svg?branch=master)](https://travis-ci.org/harrymt/nextperiod)
+
 # nextperiod
 
 Use this package to easily get the next time period in a series.

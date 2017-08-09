@@ -1,5 +1,4 @@
-// Init series
-exports.series = {};
+let series = {};
 
 /**
  * Parse or format the given `val`.
@@ -10,16 +9,115 @@ exports.series = {};
  * @return {String|Number|Boolean}
  * @api public
  */
-module.exports = function(val, options) {
-  options = options || {};
+module.exports = function(s, val) {
+  //, options) {
   var type = typeof val;
+  if (!val || type === 'object') {
+    throw new Error('Invalid input for val.');
+  }
+  series = s;
+  // options = options || {};
   if (type === 'string' && val.length > 0) {
-    return 'Hello world';
+    val = val.toUpperCase();
+    return nextPeriodAsInt(series[val]);
   } else if (type === 'number' && isNaN(val) === false) {
-    return options.myoption ? val : 'Oops';
+    return value(nextPeriodAsInt(val));
   }
   throw new Error(
     'input is not a non-empty string or a valid number. input = ' +
       JSON.stringify(val)
   );
 };
+
+/**
+ * Get the properties of the series.
+ */
+const properties = () => {
+  const p = [];
+  const keys = Object.keys(series);
+  for (let i = 0; i < keys.length; i++) {
+    p.push(series[keys[i]]);
+  }
+  return p.sort((a, b) => a - b);
+};
+
+const value = key => {
+  const keys = Object.keys(series);
+  for (let i = 0; i < keys.length; i++) {
+    if (series[keys[i]] == key) {
+      return keys[i];
+    }
+  }
+  return null;
+};
+
+// /**
+//  * Gets time in hour format. (hard coded to BST)
+//  */
+// const hour = () => {
+//   const now = new Date();
+//   now.setUTCHours(now.getUTCHours() + 1);
+//   return now.getUTCHours();
+// };
+
+/**
+ * Returns a valid hour (rounded up) or null
+ */
+const roundHourUp = hour => {
+  if (hour >= 24) {
+    return null; // Cant be bigger than 24
+  }
+
+  if (value(hour)) {
+    return hour; // Already rounded
+  }
+
+  // Keep adding 1 to the hour, until we reach a new period
+  for (let i = 1; hour < 24; i++) {
+    hour++;
+    if (value(hour)) {
+      return hour;
+    }
+  }
+  // Can't round hour for some reason
+  return null;
+};
+
+/**
+ * Gets the next period from now.
+ * @return time as number
+ */
+const nextPeriodAsInt = timeInt => {
+  if (value(timeInt) === null) {
+    // Rounds up to the next period
+    timeInt = roundHourUp(timeInt); // Always will be a vaild hour or null
+    return timeInt;
+  }
+
+  const theTimes = properties();
+  for (let i = 0; i < theTimes.length; i++) {
+    // If we found our time, choose the next one
+    if (theTimes[i] === timeInt) {
+      if (i + 1 < theTimes.length) {
+        return theTimes[i + 1];
+      }
+
+      // If we can't find the next time, start at beginning
+      return theTimes[0];
+    }
+  }
+  // return throw new Error(
+  //   'No series found for time ' + JSON.stringify(timeInt)
+  // );
+};
+
+// /**
+//  * Gets the time as string.
+//  */
+// const period = theHour => {
+//   if (!theHour) {
+//     theHour = hour();
+//   }
+
+//   return value(theHour);
+// };
