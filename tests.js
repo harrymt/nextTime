@@ -1,7 +1,4 @@
 /* eslint-disable no-undef */
-/**
- * Dependencies.
- */
 
 const series = {
   MORNING: 10,
@@ -26,6 +23,10 @@ describe('nextperiod(series, string)', function() {
   it('should be case insentitive', function() {
     expect(nextperiod(series, 'morning')).to.be(15);
   });
+
+  it('should wrap around', function() {
+    expect(nextperiod(series, 'EVENING')).to.be(10);
+  });
 });
 
 // numbers
@@ -39,6 +40,10 @@ describe('nextperiod(series, number)', function() {
 
   it('should support numbers', function() {
     expect(nextperiod(series, 10)).to.be('AFTERNOON');
+  });
+
+  it('should wrap around with numbers', function() {
+    expect(nextperiod(series, 19)).to.be('MORNING');
   });
 });
 
