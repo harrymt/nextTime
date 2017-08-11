@@ -14,7 +14,7 @@
     "precommit": "lint-staged",
     "lint": "eslint lib/* bin/*",
     "test": "mocha tests.js",
-    "deploy": "npm version patch && git commit -am 'Release' git push --tags && release && npm publish"
+    "deploy": "npm version patch && git commit -am 'Release' && git push --tags && release && npm publish"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
