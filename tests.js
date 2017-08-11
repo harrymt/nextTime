@@ -21,11 +21,11 @@ describe('nextperiod(series, string)', function() {
   });
 
   it('should be case insentitive', function() {
-    expect(nextperiod(series, 'morning')).to.be(15);
+    expect(nextperiod(series, 'morning')).to.be('AFTERNOON');
   });
 
   it('should wrap around', function() {
-    expect(nextperiod(series, 'EVENING')).to.be(10);
+    expect(nextperiod(series, 'EVENING')).to.be('MORNING');
   });
 });
 
@@ -39,11 +39,19 @@ describe('nextperiod(series, number)', function() {
   });
 
   it('should support numbers', function() {
-    expect(nextperiod(series, 10)).to.be('AFTERNOON');
+    expect(nextperiod(series, 10)).to.be(15);
   });
 
   it('should wrap around with numbers', function() {
-    expect(nextperiod(series, 19)).to.be('MORNING');
+    expect(nextperiod(series, 19)).to.be(10);
+  });
+
+  it('should round up numbers to nearest time', function() {
+    expect(nextperiod(series, 9)).to.be(15);
+  });
+
+  it('should round up numbers to nearest time extreme', function() {
+    expect(nextperiod(series, 0)).to.be(15);
   });
 });
 
@@ -53,6 +61,18 @@ describe('nextperiod(series, invalid inputs)', function() {
   it('should throw an error, when nextperiod(series, "")', function() {
     expect(function() {
       nextperiod(series, '');
+    }).to.throwError();
+  });
+
+  it('should throw an error, when nextperiod(series, -1)', function() {
+    expect(function() {
+      nextperiod(series, -1);
+    }).to.throwError();
+  });
+
+  it('should throw an error, when nextperiod(series, <24)', function() {
+    expect(function() {
+      nextperiod(series, 25);
     }).to.throwError();
   });
 

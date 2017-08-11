@@ -12,16 +12,21 @@ let series = {};
 module.exports = function(s, val) {
   //, options) {
   var type = typeof val;
-  if (!val || type === 'object') {
-    throw new Error('Invalid input for val.');
+  if ((!val || type === 'object') && val != 0) {
+    throw new Error('invalid input for val ' + JSON.stringify(val));
   }
   series = s;
   // options = options || {};
   if (type === 'string' && val.length > 0) {
     val = val.toUpperCase();
-    return nextPeriodAsInt(series[val]);
+    return value(nextPeriodAsInt(series[val]));
   } else if (type === 'number' && isNaN(val) === false) {
-    return value(nextPeriodAsInt(val));
+    if (val < 0) {
+      throw new Error(
+        'input cannot be smaller than 0 : ' + JSON.stringify(val)
+      );
+    }
+    return nextPeriodAsInt(roundHourUp(val));
   }
   throw new Error(
     'input is not a non-empty string or a valid number. input = ' +
@@ -65,7 +70,7 @@ const value = key => {
  */
 const roundHourUp = hour => {
   if (hour >= 24) {
-    return null; // Cant be bigger than 24
+    throw new Error('input cannot be larger than 24 : ' + JSON.stringify(hour));
   }
 
   if (value(hour)) {
