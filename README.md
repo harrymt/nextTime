@@ -48,9 +48,9 @@ nextperiod(series, 'MORNING', { wrap: false }) // 'AFTERNOON'
 ### Return an Object
 
 ```js
-nextperiod(series, 19, { object: true }) // false
-nextperiod(series, 15, { object: true }) // 19
-nextperiod(series, 'MORNING', { object: true }) // 'AFTERNOON'
+nextperiod(series, 19, { object: true }) // { MORNING: 10 }
+nextperiod(series, 15, { object: true }) // { EVENING: 19 }
+nextperiod(series, 'MORNING', { object: true }) // { AFTERNOON: 15 }
 ```
 
 ### Defaults
