@@ -1,10 +1,10 @@
 let series = {};
 
 /**
- * Parse or format the given `val`.
+ * Returns the next value in a time series.
  *
- * @param {String|Number} val
- * @param {Object} [options]
+ * @param {Object} s
+ * @param {Number} val
  * @throws {Error} throw an error if val is not a non-empty string or a number
  * @return {String|Number|Boolean}
  * @api public
