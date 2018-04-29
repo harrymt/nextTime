@@ -4,33 +4,33 @@ let globalSeries = {};
  * Returns the next value in a time series.
  *
  * @param {Object} series
- * @param {Number} val
+ * @param {Number} theValue
  * @throws {Error} throw an error if val is not a non-empty string or a number
  * @return {String|Number|Boolean}
  * @api public
  */
-module.exports = function (series, val) {
+module.exports = function (series, theValue) {
     //, options) {
-    var type = typeof val;
-    if ((!val || type === 'object') && val != 0) {
-        throw new Error(`invalid input for val ${JSON.stringify(val)}`);
+    var type = typeof theValue;
+    if ((!theValue || type === 'object') && theValue != 0) {
+        throw new Error(`invalid input for val ${JSON.stringify(theValue)}`);
     }
     globalSeries = series;
     // options = options || {};
-    if (type === 'string' && val.length > 0) {
-        val = val.toUpperCase();
-        return value(nextPeriodAsInt(series[val]));
-    } else if (type === 'number' && isNaN(val) === false) {
-        if (val < 0) {
+    if (type === 'string' && theValue.length > 0) {
+        theValue = theValue.toUpperCase();
+        return value(nextPeriodAsInt(series[theValue]));
+    } else if (type === 'number' && isNaN(theValue) === false) {
+        if (theValue < 0) {
             throw new Error(
-                `input cannot be smaller than 0 : ${JSON.stringify(val)}`
+                `input cannot be smaller than 0 : ${JSON.stringify(theValue)}`
             );
         }
-        return nextPeriodAsInt(roundHourUp(val));
+        return nextPeriodAsInt(roundHourUp(theValue));
     }
     throw new Error(
         `input is not a non-empty string or a valid number. input = ${JSON.stringify(
-            val
+            theValue
         )}`
     );
 };
