@@ -6,3 +6,6 @@ npm-debug.log
 
 # jest code coverage
 coverage
+
+# npms package lock
+package-lock.json
