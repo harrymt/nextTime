@@ -7,17 +7,18 @@ Use this package to easily get the next time period in a series.
 ## Install
 
 ```
-npm install nextperiod --save
+npm i nextperiod -S
 ```
 
 ```js
+import nextperiod from 'nextperiod'
+
 const series = {
   MORNING: 10,
   AFTERNOON: 15,
   EVENING: 19
 }
 
-const nextperiod = require('nextperiod')
 ```
 
 ## Examples
@@ -30,14 +31,14 @@ nextperiod(series, 'evening') // 'MORNING'
 nextperiod(series, { MORNING: 10 }) // 'AFTERNOON'
 ```
 
-### Pretty Output
+#### Pretty Output
 
 ```js
 nextperiod(series, 'afternoon', { pretty: true }) // 'Evening'
 nextperiod(series, 15, { pretty: true })          // 'Evening'
 ```
 
-### Custom Wrapping
+#### Custom Wrapping
 
 ```js
 nextperiod(series, 19, { wrap: false }) // false
@@ -45,7 +46,7 @@ nextperiod(series, 15, { wrap: false }) // 19
 nextperiod(series, 'MORNING', { wrap: false }) // 'AFTERNOON'
 ```
 
-### Return an Object
+#### Return an Object
 
 ```js
 nextperiod(series, 19, { object: true }) // { MORNING: 10 }
@@ -53,7 +54,7 @@ nextperiod(series, 15, { object: true }) // { EVENING: 19 }
 nextperiod(series, 'MORNING', { object: true }) // { AFTERNOON: 15 }
 ```
 
-### Defaults
+#### Defaults
 
 ```js
 nextperiod([], 'NOT_IN_SERIES') // false
