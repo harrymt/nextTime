@@ -3,30 +3,35 @@ let globalSeries = {};
 /**
  * Returns the next value in a time series.
  *
- * @param {Object} series
- * @param {Number} theValue
- * @throws {Error} throw an error if val is not a non-empty string or a number
- * @return {String|Number|Boolean}
+ * @param {Object} series object to use as the series.
+ * @param {Number} theValue current value to get the next one after it.
+ * @throws {Error} errors if {@link theValue} is not a non-empty string or a number.
+ * @return {String|Number|Boolean} the next value in the {@link series} after {@link theValue}.
  * @api public
  */
 module.exports = function (series, theValue) {
-    //, options) {
     var type = typeof theValue;
     if ((!theValue || type === 'object') && theValue != 0) {
-        throw new Error(`invalid input for val ${JSON.stringify(theValue)}`);
+        throw new Error(
+            `invalid input for val ${JSON.stringify(theValue)}`
+        );
     }
     globalSeries = series;
-    // options = options || {};
+
     if (type === 'string' && theValue.length > 0) {
         theValue = theValue.toUpperCase();
-        return value(nextPeriodAsInt(series[theValue]));
+        return value(
+            nextPeriodAsInt(series[theValue])
+        );
     } else if (type === 'number' && isNaN(theValue) === false) {
         if (theValue < 0) {
             throw new Error(
                 `input cannot be smaller than 0 : ${JSON.stringify(theValue)}`
             );
         }
-        return nextPeriodAsInt(roundHourUp(theValue));
+        return nextPeriodAsInt(
+            roundHourUp(theValue)
+        );
     }
     throw new Error(
         `input is not a non-empty string or a valid number. input = ${JSON.stringify(
@@ -42,7 +47,9 @@ const properties = () => {
     const p = [];
     const keys = Object.keys(globalSeries);
     for (let i = 0; i < keys.length; i++) {
-        p.push(globalSeries[keys[i]]);
+        p.push(
+            globalSeries[keys[i]]
+        );
     }
     return p.sort((a, b) => a - b);
 };
@@ -62,7 +69,9 @@ const value = key => {
  */
 const roundHourUp = hour => {
     if (hour >= 24) {
-        throw new Error(`input cannot be larger than 24 : ${JSON.stringify(hour)}`);
+        throw new Error(
+            `input cannot be larger than 24 : ${JSON.stringify(hour)}`
+        );
     }
 
     if (value(hour)) {
