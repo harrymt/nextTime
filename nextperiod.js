@@ -56,15 +56,6 @@ const value = key => {
   return null;
 };
 
-// /**
-//  * Gets time in hour format. (hard coded to BST)
-//  */
-// const hour = () => {
-//   const now = new Date();
-//   now.setUTCHours(now.getUTCHours() + 1);
-//   return now.getUTCHours();
-// };
-
 /**
  * Returns a valid hour (rounded up) or null
  */
@@ -111,18 +102,4 @@ const nextPeriodAsInt = timeInt => {
       return theTimes[0];
     }
   }
-  // return throw new Error(
-  //   'No series found for time ' + JSON.stringify(timeInt)
-  // );
 };
-
-// /**
-//  * Gets the time as string.
-//  */
-// const period = theHour => {
-//   if (!theHour) {
-//     theHour = hour();
-//   }
-
-//   return value(theHour);
-// };

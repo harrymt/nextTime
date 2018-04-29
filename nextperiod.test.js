@@ -6,13 +6,10 @@ const series = {
   EVENING: 19
 };
 
-if (typeof require !== 'undefined') {
-  expect = require('expect.js');
-  nextperiod = require('./');
-}
+const expect = require('expect.js');
+const nextperiod = require('./nextperiod');
 
 // strings
-
 describe('nextperiod(series, string)', function() {
   it('should not throw an error', function() {
     expect(function() {
