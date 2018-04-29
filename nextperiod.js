@@ -1,21 +1,21 @@
-let series = {};
+let globalSeries = {};
 
 /**
  * Returns the next value in a time series.
  *
- * @param {Object} s
+ * @param {Object} series
  * @param {Number} val
  * @throws {Error} throw an error if val is not a non-empty string or a number
  * @return {String|Number|Boolean}
  * @api public
  */
-module.exports = function (s, val) {
+module.exports = function (series, val) {
     //, options) {
     var type = typeof val;
     if ((!val || type === 'object') && val != 0) {
         throw new Error(`invalid input for val ${JSON.stringify(val)}`);
     }
-    series = s;
+    globalSeries = series;
     // options = options || {};
     if (type === 'string' && val.length > 0) {
         val = val.toUpperCase();
@@ -40,17 +40,17 @@ module.exports = function (s, val) {
  */
 const properties = () => {
     const p = [];
-    const keys = Object.keys(series);
+    const keys = Object.keys(globalSeries);
     for (let i = 0; i < keys.length; i++) {
-        p.push(series[keys[i]]);
+        p.push(globalSeries[keys[i]]);
     }
     return p.sort((a, b) => a - b);
 };
 
 const value = key => {
-    const keys = Object.keys(series);
+    const keys = Object.keys(globalSeries);
     for (let i = 0; i < keys.length; i++) {
-        if (series[keys[i]] == key) {
+        if (globalSeries[keys[i]] == key) {
             return keys[i];
         }
     }
